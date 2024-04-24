@@ -3,9 +3,10 @@ package v3_test
 import (
 	"testing"
 
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/vm"
 	"github.com/evmos/ethermint/x/evm/keeper"
 	"github.com/evmos/ethermint/x/evm/types"
-	"github.com/evmos/ethermint/x/evm/vm/geth"
 	"github.com/stretchr/testify/require"
 
 	storetypes "github.com/cosmos/cosmos-sdk/store/types"
@@ -149,10 +150,10 @@ func TestKeyTableCompatiabilityWithKeeper(t *testing.T) {
 	keeper.NewKeeper(
 		cdc, storeKey, tKey, authtypes.NewModuleAddress("gov"),
 		ak,
-		nil, nil, nil, nil,
-		geth.NewEVM,
+		nil, nil, nil,
 		"",
 		subspace,
+		make(map[common.Address]vm.PrecompiledContract),
 	)
 
 	// ensure that the migration is compatible with the keeper legacy

@@ -8,13 +8,14 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	authtypes "github.com/cosmos/cosmos-sdk/x/auth/types"
 	paramtypes "github.com/cosmos/cosmos-sdk/x/params/types"
+	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/core/vm"
 	"github.com/evmos/ethermint/app"
 	"github.com/evmos/ethermint/encoding"
 	"github.com/evmos/ethermint/x/evm/keeper"
 	"github.com/evmos/ethermint/x/evm/types"
 	legacytypes "github.com/evmos/ethermint/x/evm/types/legacy"
 	legacytestutil "github.com/evmos/ethermint/x/evm/types/legacy/testutil"
-	"github.com/evmos/ethermint/x/evm/vm/geth"
 )
 
 func (suite *KeeperTestSuite) TestParams() {
@@ -150,10 +151,10 @@ func (suite *KeeperTestSuite) TestLegacyParamsKeyTableRegistration() {
 		return keeper.NewKeeper(
 			cdc, storeKey, tKey, authtypes.NewModuleAddress("gov"),
 			ak,
-			nil, nil, nil, nil, // OK to pass nil in for these since we only instantiate and use params
-			geth.NewEVM,
+			nil, nil, nil, // OK to pass nil in for these since we only instantiate and use params
 			"",
 			unregisteredSubspace,
+			make(map[common.Address]vm.PrecompiledContract),
 		)
 	}
 	k := newKeeper()
@@ -207,10 +208,10 @@ func (suite *KeeperTestSuite) TestRenamedFieldReturnsProperValueForLegacyParams(
 	k := keeper.NewKeeper(
 		cdc, storeKey, tKey, authtypes.NewModuleAddress("gov"),
 		ak,
-		nil, nil, nil, nil,
-		geth.NewEVM,
+		nil, nil, nil,
 		"",
 		subspace,
+		make(map[common.Address]vm.PrecompiledContract),
 	)
 
 	params := k.GetParams(ctx)
@@ -239,10 +240,10 @@ func (suite *KeeperTestSuite) TestNilLegacyParamsDoNotPanic() {
 	k := keeper.NewKeeper(
 		cdc, storeKey, tKey, authtypes.NewModuleAddress("gov"),
 		ak,
-		nil, nil, nil, nil, // OK to pass nil in for these since we only instantiate and use params
-		geth.NewEVM,
+		nil, nil, nil, // OK to pass nil in for these since we only instantiate and use params
 		"",
 		subspace,
+		make(map[common.Address]vm.PrecompiledContract),
 	)
 
 	suite.Require().NotPanics(func() { k.GetParams(ctx) })

@@ -37,7 +37,7 @@ type Params struct {
 	ExtraEIPs []int64 `protobuf:"varint,4,rep,packed,name=extra_eips,json=extraEips,proto3" json:"extra_eips,omitempty" yaml:"extra_eips"`
 	// chain_config defines the EVM chain configuration parameters
 	ChainConfig ChainConfig `protobuf:"bytes,5,opt,name=chain_config,json=chainConfig,proto3" json:"chain_config" yaml:"chain_config"`
-	// list of allowed eip712 msgs and their types
+	// eip712_allowed_msgs contains list of allowed eip712 msgs and their types
 	EIP712AllowedMsgs []EIP712AllowedMsg `protobuf:"bytes,6,rep,name=eip712_allowed_msgs,json=eip712AllowedMsgs,proto3" json:"eip712_allowed_msgs"`
 	// allow_unprotected_txs defines if replay-protected (i.e non EIP155
 	// signed) transactions can be executed on the state machine.
@@ -686,13 +686,13 @@ func (m *TraceConfig) GetTracerJsonConfig() string {
 
 // EIP712AllowedMsg stores an allowed legacy msg and its eip712 type.
 type EIP712AllowedMsg struct {
-	// msg's proto type name. ie "/cosmos.bank.v1beta1.MsgSend"
+	// msg_type_url is a msg's proto type name. ie "/cosmos.bank.v1beta1.MsgSend"
 	MsgTypeUrl string `protobuf:"bytes,1,opt,name=msg_type_url,json=msgTypeUrl,proto3" json:"msg_type_url,omitempty"`
-	// name of the eip712 value type. ie "MsgValueSend"
+	// msg_value_type_name is a name of the eip712 value type. ie "MsgValueSend"
 	MsgValueTypeName string `protobuf:"bytes,2,opt,name=msg_value_type_name,json=msgValueTypeName,proto3" json:"msg_value_type_name,omitempty"`
-	// types of the msg value
+	// value_types is a list of msg value types
 	ValueTypes []EIP712MsgAttrType `protobuf:"bytes,3,rep,name=value_types,json=valueTypes,proto3" json:"value_types"`
-	// nested types of the msg value
+	// nested_types is a list of msg value nested types
 	NestedTypes []EIP712NestedMsgType `protobuf:"bytes,4,rep,name=nested_types,json=nestedTypes,proto3" json:"nested_types"`
 }
 
@@ -757,7 +757,7 @@ func (m *EIP712AllowedMsg) GetNestedTypes() []EIP712NestedMsgType {
 	return nil
 }
 
-// EIP712MsgType is the eip712 type of a single message.
+// EIP712NestedMsgType is the eip712 type of a single message.
 type EIP712NestedMsgType struct {
 	// name of the nested type. ie "Fee", "Coin"
 	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
@@ -814,7 +814,9 @@ func (m *EIP712NestedMsgType) GetAttrs() []EIP712MsgAttrType {
 
 // EIP712MsgAttrType is the eip712 type of a single message attribute.
 type EIP712MsgAttrType struct {
+	// name
 	Name string `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	// type
 	Type string `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
 }
 

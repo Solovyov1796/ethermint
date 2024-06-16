@@ -35,18 +35,19 @@ require (
 	github.com/tendermint/tm-db v0.6.7
 	github.com/tyler-smith/go-bip39 v1.1.0
 	golang.org/x/exp v0.0.0-20230131160201-f062dba9d201
-	golang.org/x/net v0.8.0
-	google.golang.org/genproto v0.0.0-20221227171554-f9683d7f8bef
-	google.golang.org/grpc v1.52.0
+	golang.org/x/net v0.17.0
+	google.golang.org/genproto/googleapis/api v0.0.0-20230920204549-e6e6cdab5c13
+	google.golang.org/grpc v1.58.3
 	sigs.k8s.io/yaml v1.3.0
 )
 
 require (
-	cloud.google.com/go v0.105.0 // indirect
-	cloud.google.com/go/compute v1.14.0 // indirect
+	cloud.google.com/go v0.110.8 // indirect
+	cloud.google.com/go/compute v1.23.0 // indirect
 	cloud.google.com/go/compute/metadata v0.2.3 // indirect
-	cloud.google.com/go/iam v0.8.0 // indirect
-	cloud.google.com/go/storage v1.27.0 // indirect
+	cloud.google.com/go/iam v1.1.2 // indirect
+	cloud.google.com/go/storage v1.30.1 // indirect
+	cosmossdk.io/log v1.3.1 // indirect
 	filippo.io/edwards25519 v1.0.0-rc.1 // indirect
 	github.com/99designs/keyring v1.2.1 // indirect
 	github.com/ChainSafe/go-schnorrkel v0.0.0-20200405005733-88cbf1b4c40d // indirect
@@ -61,7 +62,7 @@ require (
 	github.com/btcsuite/btcd/chaincfg/chainhash v1.0.1 // indirect
 	github.com/cenkalti/backoff/v4 v4.1.3 // indirect
 	github.com/cespare/xxhash v1.1.0 // indirect
-	github.com/cespare/xxhash/v2 v2.1.2 // indirect
+	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/chzyer/readline v0.0.0-20180603132655-2972be24d48e // indirect
 	github.com/cockroachdb/apd/v2 v2.0.2 // indirect
 	github.com/coinbase/rosetta-sdk-go v0.7.9 // indirect
@@ -70,7 +71,7 @@ require (
 	github.com/cosmos/btcutil v1.0.5 // indirect
 	github.com/cosmos/gorocksdb v1.2.0 // indirect
 	github.com/cosmos/iavl v0.19.5 // indirect
-	github.com/cosmos/ledger-cosmos-go v0.12.2 // indirect
+	github.com/cosmos/ledger-cosmos-go v0.13.1 // indirect
 	github.com/creachadair/taskgroup v0.3.2 // indirect
 	github.com/danieljoos/wincred v1.1.2 // indirect
 	github.com/deckarep/golang-set v1.8.0 // indirect
@@ -97,16 +98,17 @@ require (
 	github.com/go-task/slim-sprig v0.0.0-20210107165309-348f09dbbbc0 // indirect
 	github.com/godbus/dbus v0.0.0-20190726142602-4481cbc300e2 // indirect
 	github.com/gogo/gateway v1.1.0 // indirect
-	github.com/golang/glog v1.0.0 // indirect
+	github.com/golang/glog v1.1.0 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/google/btree v1.1.2 // indirect
-	github.com/google/go-cmp v0.5.9 // indirect
+	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/google/orderedcode v0.0.1 // indirect
 	github.com/google/pprof v0.0.0-20210407192527-94a9f03dee38 // indirect
+	github.com/google/s2a-go v0.1.4 // indirect
 	github.com/google/uuid v1.3.0 // indirect
-	github.com/googleapis/enterprise-certificate-proxy v0.2.1 // indirect
-	github.com/googleapis/gax-go/v2 v2.7.0 // indirect
+	github.com/googleapis/enterprise-certificate-proxy v0.2.4 // indirect
+	github.com/googleapis/gax-go/v2 v2.12.0 // indirect
 	github.com/gorilla/handlers v1.5.1 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.3.0 // indirect
 	github.com/gsterjov/go-libsecret v0.0.0-20161001094733-a6f4afe4910c // indirect
@@ -134,7 +136,7 @@ require (
 	github.com/magiconair/properties v1.8.7 // indirect
 	github.com/manifoldco/promptui v0.9.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
-	github.com/mattn/go-isatty v0.0.16 // indirect
+	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mattn/go-runewidth v0.0.9 // indirect
 	github.com/matttproud/golang_protobuf_extensions v1.0.2-0.20181231171920-c182affec369 // indirect
 	github.com/mimoo/StrobeGo v0.0.0-20210601165009-122bf33a46e0 // indirect
@@ -155,7 +157,7 @@ require (
 	github.com/rcrowley/go-metrics v0.0.0-20201227073835-cf1acfcdf475 // indirect
 	github.com/regen-network/cosmos-proto v0.3.1 // indirect
 	github.com/rjeczalik/notify v0.9.1 // indirect
-	github.com/rs/zerolog v1.27.0 // indirect
+	github.com/rs/zerolog v1.32.0 // indirect
 	github.com/sasha-s/go-deadlock v0.3.1 // indirect
 	github.com/shirou/gopsutil v3.21.4-0.20210419000835-c7a38de76ee5+incompatible // indirect
 	github.com/spf13/afero v1.9.3 // indirect
@@ -171,20 +173,22 @@ require (
 	github.com/tklauser/numcpus v0.4.0 // indirect
 	github.com/ulikunitz/xz v0.5.8 // indirect
 	github.com/zondax/hid v0.9.1 // indirect
-	github.com/zondax/ledger-go v0.14.1 // indirect
+	github.com/zondax/ledger-go v0.14.2 // indirect
 	go.etcd.io/bbolt v1.3.6 // indirect
 	go.opencensus.io v0.24.0 // indirect
-	golang.org/x/crypto v0.5.0 // indirect
-	golang.org/x/oauth2 v0.4.0 // indirect
-	golang.org/x/sync v0.1.0 // indirect
-	golang.org/x/sys v0.6.0 // indirect
-	golang.org/x/term v0.6.0 // indirect
-	golang.org/x/text v0.8.0 // indirect
+	golang.org/x/crypto v0.14.0 // indirect
+	golang.org/x/oauth2 v0.10.0 // indirect
+	golang.org/x/sync v0.3.0 // indirect
+	golang.org/x/sys v0.15.0 // indirect
+	golang.org/x/term v0.13.0 // indirect
+	golang.org/x/text v0.13.0 // indirect
 	golang.org/x/tools v0.7.0 // indirect
 	golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2 // indirect
-	google.golang.org/api v0.107.0 // indirect
+	google.golang.org/api v0.128.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
-	google.golang.org/protobuf v1.28.2-0.20220831092852-f930b1dc76e8 // indirect
+	google.golang.org/genproto v0.0.0-20231002182017-d307bd883b97 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20231009173412-8bfb1ae86b6c // indirect
+	google.golang.org/protobuf v1.31.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/natefinch/npipe.v2 v2.0.0-20160621034901-c1b8fa8bdcce // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
@@ -196,7 +200,7 @@ replace (
 	// use cosmos keyring
 	github.com/99designs/keyring => github.com/cosmos/keyring v1.1.7-0.20210622111912-ef00f8ac3d76
 	// Use cosmos-sdk fork with staking transfer events, and custom tally handler support
-	github.com/cosmos/cosmos-sdk => github.com/kava-labs/cosmos-sdk v0.46.11-kava.1
+	github.com/cosmos/cosmos-sdk => github.com/0glabs/cosmos-sdk v0.46.11-0glabs.5
 	// Use go-ethereum fork with precompiles
 	github.com/ethereum/go-ethereum => github.com/evmos/go-ethereum v1.10.26-evmos-rc2
 	// Fix upstream GHSA-h395-qcrw-5vmq vulnerability.

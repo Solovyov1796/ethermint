@@ -62,8 +62,8 @@ git.sr.ht/~sircmpwn/getopt v0.0.0-20191230200459-23622cc906b3/go.mod h1:wMEGFFFN
 git.sr.ht/~sircmpwn/go-bare v0.0.0-20210406120253-ab86bc2846d9/go.mod h1:BVJwbDfVjCjoFiKrhkei6NdGcZYpkDkdyCdg1ukytRA=
 github.com/0glabs/cometbft v0.34.27-0glabs.0 h1:jErty8aVtp2RiU/59QTEhUCi3xCoc67NHHsmIqd7Xz4=
 github.com/0glabs/cometbft v0.34.27-0glabs.0/go.mod h1:BcCbhKv7ieM0KEddnYXvQZR+pZykTKReJJYf7YC7qhw=
-github.com/0glabs/cosmos-sdk v0.46.11-0glabs.6.fix h1:hP4TFYMxwibmVlPD+3OCZIah9jhIrAcbr/93uijPOxA=
-github.com/0glabs/cosmos-sdk v0.46.11-0glabs.6.fix/go.mod h1:zMvZI0GzsY3zuWA5rGJmSjB0/SYpoZJQY1zyCS/ns3g=
+github.com/0glabs/cosmos-sdk v0.46.11-0glabs.6.2 h1:Wi/ET8qXFp2GSy2lCr+szIBbN+tG3vPjzWzTt8VgAgg=
+github.com/0glabs/cosmos-sdk v0.46.11-0glabs.6.2/go.mod h1:zMvZI0GzsY3zuWA5rGJmSjB0/SYpoZJQY1zyCS/ns3g=
 github.com/Azure/azure-sdk-for-go/sdk/azcore v0.21.1/go.mod h1:fBF9PQNqB8scdgpZ3ufzaLntG0AG7C1WjPMsiFOmfHM=
 github.com/Azure/azure-sdk-for-go/sdk/internal v0.8.3/go.mod h1:KLF4gFr6DcKFZwSuH8w8yEK6DpFl3LP5rhdvAb7Yz5I=
 github.com/Azure/azure-sdk-for-go/sdk/storage/azblob v0.3.0/go.mod h1:tPaiy8S5bQ+S5sOiDlINkp7+Ef339+Nz5L5XO+cnOHo=

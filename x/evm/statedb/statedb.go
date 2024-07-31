@@ -80,6 +80,11 @@ func New(ctx sdk.Context, keeper Keeper, txConfig TxConfig) *StateDB {
 	}
 }
 
+// GetContext returns the transaction Context.
+func (s *StateDB) GetContext() sdk.Context {
+	return s.ctx
+}
+
 // Keeper returns the underlying `Keeper`
 func (s *StateDB) Keeper() Keeper {
 	return s.keeper

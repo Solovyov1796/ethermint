@@ -224,8 +224,7 @@ replace (
 	// use cosmos keyring
 	github.com/99designs/keyring => github.com/cosmos/keyring v1.2.0
 	// Use cosmos-sdk fork with staking transfer events, and custom tally handler support
-	github.com/cosmos/cosmos-sdk => /home/mushroom/go/src/0glabs/cosmos-sdk
-	//github.com/kava-labs/cosmos-sdk v0.47.10-kava.2
+	github.com/cosmos/cosmos-sdk => github.com/0glabs/cosmos-sdk v0.47.10-0glabs.0
 	// Use go-ethereum fork with precompiles
 	github.com/ethereum/go-ethereum => github.com/evmos/go-ethereum v1.10.26-evmos-rc2
 	// Fix upstream GHSA-h395-qcrw-5vmq vulnerability.

@@ -91,26 +91,6 @@ func UnwrapEthereumMsg(tx *sdk.Tx, ethHash common.Hash) (*MsgEthereumTx, error) 
 	return nil, fmt.Errorf("eth tx not found: %s", ethHash)
 }
 
-// BinSearch execute the binary search and hone in on an executable gas limit
-func BinSearch(lo, hi uint64, executable func(uint64) (bool, *MsgEthereumTxResponse, error)) (uint64, error) {
-	for lo+1 < hi {
-		mid := (hi + lo) / 2
-		failed, _, err := executable(mid)
-		// If the error is not nil(consensus error), it means the provided message
-		// call or transaction will never be accepted no matter how much gas it is
-		// assigned. Return the error directly, don't struggle any more.
-		if err != nil {
-			return 0, err
-		}
-		if failed {
-			lo = mid
-		} else {
-			hi = mid
-		}
-	}
-	return hi, nil
-}
-
 // EffectiveGasPrice compute the effective gas price based on eip-1159 rules
 // `effectiveGasPrice = min(baseFee + tipCap, feeCap)`
 func EffectiveGasPrice(baseFee *big.Int, feeCap *big.Int, tipCap *big.Int) *big.Int {

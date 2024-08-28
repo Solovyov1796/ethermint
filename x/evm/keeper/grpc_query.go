@@ -290,9 +290,7 @@ func (k Keeper) EstimateGas(c context.Context, req *types.EthCallRequest) (*type
 
 	// Binary search the gas requirement, as it may be higher than the amount used
 	var (
-		lo     = ethparams.TxGas - 1
-		hi     uint64
-		gasCap uint64
+		hi uint64
 	)
 
 	// Determine the highest gas limit can be used during the estimation.
@@ -314,7 +312,6 @@ func (k Keeper) EstimateGas(c context.Context, req *types.EthCallRequest) (*type
 	if req.GasCap != 0 && hi > req.GasCap {
 		hi = req.GasCap
 	}
-	gasCap = hi
 	cfg, err := k.EVMConfig(ctx, GetProposerAddress(ctx, req.ProposerAddress), chainID)
 	if err != nil {
 		return nil, status.Error(codes.Internal, "failed to load evm config")
@@ -354,6 +351,10 @@ func (k Keeper) EstimateGas(c context.Context, req *types.EthCallRequest) (*type
 
 		// pass false to not commit StateDB
 		tmpCtx, _ := ctx.CacheContext()
+		params := k.feeMarketKeeper.GetParams(tmpCtx)
+		params.MinGasMultiplier = sdk.ZeroDec()
+		k.feeMarketKeeper.SetParams(tmpCtx, params)
+
 		rsp, err = k.ApplyMessageWithConfig(tmpCtx, msg, nil, false, cfg, txConfig)
 		if err != nil {
 			if errors.Is(err, core.ErrIntrinsicGas) {
@@ -364,31 +365,26 @@ func (k Keeper) EstimateGas(c context.Context, req *types.EthCallRequest) (*type
 		return len(rsp.VmError) > 0, rsp, nil
 	}
 
-	// Execute the binary search and hone in on an executable gas limit
-	hi, err = types.BinSearch(lo, hi, executable)
+	// Reject the transaction as invalid if it still fails at the highest allowance
+	failed, result, err := executable(hi)
 	if err != nil {
 		return nil, err
 	}
 
-	// Reject the transaction as invalid if it still fails at the highest allowance
-	if hi == gasCap {
-		failed, result, err := executable(hi)
-		if err != nil {
-			return nil, err
-		}
-
-		if failed {
-			if result != nil && result.VmError != vm.ErrOutOfGas.Error() {
-				if result.VmError == vm.ErrExecutionReverted.Error() {
-					return nil, types.NewExecErrorWithReason(result.Ret)
-				}
-				return nil, errors.New(result.VmError)
+	if failed {
+		if result != nil && result.VmError != vm.ErrOutOfGas.Error() {
+			if result.VmError == vm.ErrExecutionReverted.Error() {
+				return nil, types.NewExecErrorWithReason(result.Ret)
 			}
-			// Otherwise, the specified gas cap is too low
-			return nil, fmt.Errorf("gas required exceeds allowance (%d)", gasCap)
+			return nil, errors.New(result.VmError)
 		}
+		// Otherwise, the specified gas cap is too low
+		return nil, fmt.Errorf("gas required exceeds allowance (%d)", hi)
 	}
-	return &types.EstimateGasResponse{Gas: hi}, nil
+
+	// Refer to https://eips.ethereum.org/EIPS/eip-3529
+	// max gas refund is 20% of the gas used so we can estimate the gas used by dividing the gas used by 0.75
+	return &types.EstimateGasResponse{Gas: min(hi, uint64(float64(result.GasUsed)/0.75))}, nil
 }
 
 // TraceTx configures a new tracer according to the provided configuration, and

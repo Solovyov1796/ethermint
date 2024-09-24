@@ -158,6 +158,20 @@ func NewBlockCache() BlockCache {
 	}
 }
 
+// BlockCache is a cache for storing block data
+type BlockCache struct {
+	// cache is the underlying cache
+	cache *cache.Cache
+	// muMap is a map of block number to a mutex to prevent concurrent access to the same block
+	muMap sync.Map
+}
+
+func NewBlockCache() BlockCache {
+	return BlockCache{
+		cache: cache.New(5*time.Minute, 10*time.Minute),
+	}
+}
+
 // Backend implements the BackendI interface
 type Backend struct {
 	ctx                 context.Context

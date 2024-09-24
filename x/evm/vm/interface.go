@@ -18,23 +18,11 @@ package vm
 import (
 	"math/big"
 
-	"github.com/ethereum/go-ethereum/precompile/contract"
-
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/vm"
 	"github.com/ethereum/go-ethereum/params"
 	"github.com/holiman/uint256"
 )
-
-// PrecompiledContracts defines a map of address -> precompiled contract
-type PrecompiledContracts map[common.Address]vm.PrecompiledContract
-
-type StatefulPrecompiledContracts map[common.Address]contract.StatefulPrecompiledContract
-
-type StatefulPrecompiledContract interface {
-	vm.PrecompiledContract
-	RunStateful(evm EVM, addr common.Address, input []byte, value *big.Int) (ret []byte, err error)
-}
 
 // EVM defines the interface for the Ethereum Virtual Machine used by the EVM module.
 type EVM interface {
@@ -60,17 +48,6 @@ type EVM interface {
 		ret []byte, contractAddr common.Address, leftOverGas uint64, err error,
 	)
 	ChainConfig() *params.ChainConfig
-
-	ActivePrecompiles(rules params.Rules) []common.Address
-	Precompile(addr common.Address) (contract.StatefulPrecompiledContract, bool)
-	RunPrecompiledContract(
-		p StatefulPrecompiledContract,
-		addr common.Address,
-		input []byte,
-		suppliedGas uint64,
-		value *big.Int) (
-		ret []byte, remainingGas uint64, err error,
-	)
 }
 
 // Constructor defines the function used to instantiate the EVM on
@@ -81,5 +58,4 @@ type Constructor func(
 	stateDB vm.StateDB,
 	chainConfig *params.ChainConfig,
 	config vm.Config,
-	customPrecompiles PrecompiledContracts,
 ) EVM

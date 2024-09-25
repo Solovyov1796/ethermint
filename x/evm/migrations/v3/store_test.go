@@ -165,7 +165,6 @@ func TestKeyTableCompatiabilityWithKeeper(t *testing.T) {
 			storeKey,
 			cdc,
 		)
-
 	}, "type mismatch with registered table")
 }
 

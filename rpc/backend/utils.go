@@ -87,7 +87,7 @@ func (b *Backend) getAccountNonce(accAddr common.Address, pending bool, height i
 
 	// the account retriever doesn't include the uncommitted transactions on the nonce so we need to
 	// to manually add them.
-	pendingTxs, err := b.PendingTransactions()
+	pendingTxs, err := b.allPendingTransactions()
 	if err != nil {
 		logger.Error("failed to fetch pending transactions", "error", err.Error())
 		return nonce, nil

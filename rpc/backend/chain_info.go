@@ -133,6 +133,30 @@ func (b *Backend) PendingTransactions() ([]*sdk.Tx, error) {
 	return result, nil
 }
 
+// allPendingTransactions returns the transactions that are in the transaction pool
+// and have a from address that is one of the accounts this node manages.
+func (b *Backend) allPendingTransactions() ([]*sdk.Tx, error) {
+	mc, ok := b.clientCtx.Client.(tmrpcclient.LocalMempoolClient)
+	if !ok {
+		b.logger.Error("invalid rpc client")
+	}
+	res, err := mc.AllUnconfirmedTxs(b.ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	result := make([]*sdk.Tx, 0, len(res.Txs))
+	for _, txBz := range res.Txs {
+		tx, err := b.clientCtx.TxConfig.TxDecoder()(txBz)
+		if err != nil {
+			return nil, err
+		}
+		result = append(result, &tx)
+	}
+
+	return result, nil
+}
+
 // GetCoinbase is the address that staking rewards will be send to (alias for Etherbase).
 func (b *Backend) GetCoinbase() (sdk.AccAddress, error) {
 	node, err := b.clientCtx.GetNode()
